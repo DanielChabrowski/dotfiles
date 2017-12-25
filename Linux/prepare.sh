@@ -19,8 +19,5 @@ sudo apt-get update \
     && sudo apt-get install -y --no-install-recommends \
     sublime-text
 
-# Use sublime-text as default editor for git
-git config --global core.editor "subl -n -w"
-
 # Make Projects directory
 mkdir -p "/home/$USER/Projects"
