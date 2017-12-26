@@ -19,6 +19,9 @@ sudo apt-get update \
 # Install vimrc
 cp .vimrc ~/.vimrc
 
+# Make vim git's default editor
+git config --global core.editor "vim"
+
 # Install powerline configuration
 cp -R powerline ~/.config/powerline
 
