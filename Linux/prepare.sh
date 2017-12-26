@@ -5,6 +5,9 @@ sudo apt-get update \
     vim \
     wget \
     tree \
+    powerline \
+    fonts-powerline \
+    python3-powerline \
     apt-transport-https \
     build-essential \
     git \
@@ -15,6 +18,9 @@ sudo apt-get update \
 
 # Install vimrc
 cp .vimrc ~/.vimrc
+
+# Install powerline configuration
+cp -R powerline ~/.config/powerline
 
 # Install sublime-text
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
