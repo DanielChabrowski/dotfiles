@@ -25,6 +25,9 @@ git config --global core.editor "vim"
 # Install powerline configuration
 cp -R powerline ~/.config/powerline
 
+# Install .bashrc file
+cp .bashrc ~/.bashrc
+
 # Install sublime-text
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
