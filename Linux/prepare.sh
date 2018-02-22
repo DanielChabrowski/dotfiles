@@ -5,6 +5,7 @@ sudo apt-get update \
     vim \
     wget \
     tree \
+    tmux \
     powerline \
     fonts-powerline \
     python3-powerline \
