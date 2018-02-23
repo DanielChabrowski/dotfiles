@@ -18,7 +18,7 @@ sudo apt-get update \
     valgrind
 
 # Install vimrc
-cp .vimrc ~/.vimrc
+cp vim/.vimrc ~/.vimrc
 
 # Make vim git's default editor
 git config --global core.editor "vim"
@@ -27,10 +27,10 @@ git config --global core.editor "vim"
 cp -R powerline ~/.config/powerline
 
 # Install .bashrc file
-cp .bashrc ~/.bashrc
+cp bash/.bashrc ~/.bashrc
 
 # Install tmux plugins
-./tmux/install.sh
+./tmux/install_plugins.sh
 
 # Install tmux config
 cp tmux/.tmux.conf ~/.tmux.conf

@@ -3,5 +3,5 @@
 ### Prepare environment
 Install most used packages
 ```
-$ sudo ./prepare.sh
+$ sudo ./install.sh
 ```
