@@ -8,14 +8,6 @@ if [ -n "$PACKAGES_INSTALL_DISABLED" ]; then
     bash "$cwd/install_packages.sh"
 fi
 
-wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-mkdir -p ~/.fonts
-mv PowerlineSymbols.otf ~/.fonts/
-fc-cache -vf ~/.fonts/
-mkdir -p ~/.config/fontconfig/conf.d/
-mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
-
 # Install .bashrc file
 cp "$cwd/bash/.bashrc" ~/.bashrc
 
@@ -26,6 +18,7 @@ cp "$cwd/tmux/.tmux.conf" ~/.tmux.conf
 bash "$cwd/tmux/install_plugins.sh"
 
 # Install powerline configuration
+mkdir -p ~/.config
 cp -R "$cwd/powerline" ~/.config/powerline
 
 # Install vimrc

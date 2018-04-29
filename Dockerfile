@@ -9,7 +9,6 @@ RUN apt-get update \
     vim \
     tree \
     tmux \
-    fish \
     powerline \
     fonts-powerline \
     python3-powerline \
