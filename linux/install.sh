@@ -1,46 +1,35 @@
 #!/usr/bin/env bash
 
-sudo apt-get update \
-    && sudo apt-get install -y --no-install-recommends \
-    vim \
-    wget \
-    tree \
-    tmux \
-    powerline \
-    fonts-powerline \
-    python3-powerline \
-    apt-transport-https \
-    build-essential \
-    git \
-    cmake \
-    clang-format-5.0 \
-    clang-tidy-5.0 \
-    valgrind
+set -euo
+
+readonly cwd="$(dirname "$(readlink -f "$0")")"
+
+if [ -n "$PACKAGES_INSTALL_DISABLED" ]; then
+    bash "$cwd/install_packages.sh"
+fi
+
+wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+mkdir -p ~/.fonts
+mv PowerlineSymbols.otf ~/.fonts/
+fc-cache -vf ~/.fonts/
+mkdir -p ~/.config/fontconfig/conf.d/
+mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+
+# Install .bashrc file
+cp "$cwd/bash/.bashrc" ~/.bashrc
+
+# Install tmux config
+cp "$cwd/tmux/.tmux.conf" ~/.tmux.conf
+
+# Install tmux plugins
+bash "$cwd/tmux/install_plugins.sh"
+
+# Install powerline configuration
+cp -R "$cwd/powerline" ~/.config/powerline
 
 # Install vimrc
-cp vim/.vimrc ~/.vimrc
+cp "$cwd/vim/.vimrc" ~/.vimrc
 
 # Make vim git's default editor
 git config --global core.editor "vim"
-
-# Install powerline configuration
-cp -R powerline ~/.config/powerline
-
-# Install .bashrc file
-cp bash/.bashrc ~/.bashrc
-
-# Install tmux plugins
-./tmux/install_plugins.sh
-
-# Install tmux config
-cp tmux/.tmux.conf ~/.tmux.conf
-
-# Install sublime-text
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-sudo apt-get update \
-    && sudo apt-get install -y --no-install-recommends \
-    sublime-text
-
-# Make Projects directory
-mkdir -p "/home/$USER/Projects"
