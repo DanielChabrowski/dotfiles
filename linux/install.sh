@@ -4,9 +4,24 @@ set -euo
 
 readonly cwd="$(dirname "$(readlink -f "$0")")"
 
-if [ -n "$PACKAGES_INSTALL_DISABLED" ]; then
-    bash "$cwd/install_packages.sh"
-fi
+sudo apt-get update \
+   && sudo apt-get install -y --no-install-recommends \
+   curl \
+   ca-certificates \
+   vim \
+   wget \
+   tree \
+   tmux \
+   powerline \
+   fonts-powerline \
+   python3-powerline \
+   apt-transport-https \
+   build-essential \
+   git \
+   cmake \
+   clang-format-5.0 \
+   clang-tidy-5.0 \
+   valgrind
 
 # Install .bashrc file
 cp "$cwd/bash/.bashrc" ~/.bashrc
@@ -26,3 +41,6 @@ cp "$cwd/vim/.vimrc" ~/.vimrc
 
 # Make vim git's default editor
 git config --global core.editor "vim"
+
+# Install gdb dashboard
+wget -P ~ git.io/.gdbinit
