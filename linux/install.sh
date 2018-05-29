@@ -17,6 +17,7 @@ sudo apt-get update \
    python3-powerline \
    apt-transport-https \
    build-essential \
+   linux-tools-common \
    git \
    cmake \
    clang-format-5.0 \
