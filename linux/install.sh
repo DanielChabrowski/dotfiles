@@ -20,8 +20,8 @@ sudo apt-get update \
    linux-tools-common \
    git \
    cmake \
-   clang-format-5.0 \
-   clang-tidy-5.0 \
+   clang-format-6.0 \
+   clang-tidy-6.0 \
    valgrind
 
 # Install .bashrc file
