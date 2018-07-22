@@ -1,0 +1,20 @@
+[core]
+    editor = vim
+[alias]
+    lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr %an)%Creset' --abbrev-commit --date=relative
+    tree = !git lg --graph
+    unstage = reset HEAD
+    last = log -1 HEAD
+    visual = !gitk
+    uncommit = reset --soft HEAD^
+    progress = diff --stat
+    pg = diff --shortstat
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = true
+    pager = true
+[color "branch"]
+    remote = yellow

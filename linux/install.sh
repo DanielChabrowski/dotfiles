@@ -40,8 +40,8 @@ cp -R "$cwd/powerline" ~/.config/powerline
 # Install vimrc
 cp "$cwd/vim/.vimrc" ~/.vimrc
 
-# Make vim git's default editor
-git config --global core.editor "vim"
+# Install gitconfig
+cp "$cwd/git/.gitconfig" ~/.gitconfig
 
 # Install gdb dashboard
 wget -P ~ git.io/.gdbinit
