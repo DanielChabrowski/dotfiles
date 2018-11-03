@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippets>
+    <snippet group="C++" trigger="deleteop" id="" complement="" removed="false" modified="false">$name$(const $name$&amp;) = delete;
+$name$&amp; operator=($name$&amp;) = delete;
+$name$(const $name$&amp;&amp;) = delete;
+$name$&amp; operator=($name$&amp;&amp;) = delete;</snippet>
+    <snippet group="C++" trigger="forrange" id="" complement="" removed="false" modified="false">for (const auto&amp; $item$ : $container$) {
+    $$
+}</snippet>
+</snippets>
