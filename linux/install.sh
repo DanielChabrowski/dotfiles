@@ -11,6 +11,8 @@ sudo apt-get update \
    vim \
    wget \
    tree \
+   htop \
+   zsh \
    tmux \
    powerline \
    fonts-powerline \
