@@ -33,10 +33,6 @@ cp "$cwd/tmux/.tmux.conf" ~/.tmux.conf
 # Install tmux plugins
 bash "$cwd/tmux/install_plugins.sh"
 
-# Install powerline configuration
-mkdir -p ~/.config
-cp -R "$cwd/powerline" ~/.config/powerline
-
 # Install vimrc
 cp "$cwd/vim/.vimrc" ~/.vimrc
 
