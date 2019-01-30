@@ -27,9 +27,6 @@ sudo apt-get update \
    clang-tidy-6.0 \
    valgrind
 
-# Install .bashrc file
-cp "$cwd/bash/.bashrc" ~/.bashrc
-
 # Install tmux config
 cp "$cwd/tmux/.tmux.conf" ~/.tmux.conf
 
