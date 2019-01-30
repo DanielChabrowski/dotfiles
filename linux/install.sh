@@ -55,5 +55,10 @@ wget -P ~ git.io/.gdbinit
 mkdir -p ~/.config/i3
 cp "$cwd/i3/config" ~/.config/i3
 
+# Install polybar
+mkdir -p ~/.config/polybar
+cp "$cwd/polybar/config" ~/.config/polybar
+cp "$cwd/polybar/launch.sh" ~/.config/polybar
+
 # Set tmux as default shell
 chsh -s /usr/bin/tmux
