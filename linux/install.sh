@@ -51,5 +51,9 @@ cp "$cwd/git/.gitconfig" ~/.gitconfig
 # Install gdb dashboard
 wget -P ~ git.io/.gdbinit
 
+# Install i3 config
+mkdir -p ~/.config/i3
+cp "$cwd/i3/config" ~/.config/i3
+
 # Set tmux as default shell
 chsh -s /usr/bin/tmux
