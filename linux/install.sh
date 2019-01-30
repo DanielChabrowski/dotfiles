@@ -13,6 +13,7 @@ sudo apt-get update \
    tree \
    htop \
    zsh \
+   rofi \
    tmux \
    powerline \
    fonts-powerline \
