@@ -50,3 +50,6 @@ cp "$cwd/git/.gitconfig" ~/.gitconfig
 
 # Install gdb dashboard
 wget -P ~ git.io/.gdbinit
+
+# Set tmux as default shell
+chsh -s /usr/bin/tmux
