@@ -18,3 +18,5 @@
     pager = true
 [color "branch"]
     remote = yellow
+[pager]
+    branch = false
