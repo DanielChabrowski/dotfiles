@@ -7,8 +7,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends sudo curl ca-certificates wget \
     && apt-get autoremove -y
 
-ADD . /Environment/
-RUN ./Environment/linux/install.sh \
-    && rm -rf /Environment/
+ADD . /dotfiles/
+RUN ./dotfiles/linux/install.sh \
+    && rm -rf /dotfiles/
 
 ENTRYPOINT /usr/bin/env tmux

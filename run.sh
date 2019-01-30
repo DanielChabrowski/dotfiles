@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker run -it environment:latest
+docker run -it dotfiles:latest

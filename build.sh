@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build . --tag environment:latest
+docker build . --tag dotfiles:latest
