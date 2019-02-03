@@ -60,5 +60,8 @@ mkdir -p ~/.config/polybar
 cp "$cwd/polybar/config" ~/.config/polybar
 cp "$cwd/polybar/launch.sh" ~/.config/polybar
 
+# Create default project directory
+mkdir -p ~/projects
+
 # Set tmux as default shell
 chsh -s /usr/bin/tmux
