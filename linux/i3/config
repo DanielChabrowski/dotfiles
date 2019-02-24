@@ -7,8 +7,8 @@ font pango:monospace 8
 for_window [class="^.*"] border pixel 1
 new_window pixel 0
 
-gaps inner 10
-gaps outer 5
+gaps inner 5
+gaps outer 20
 
 workspace_layout tabbed
 
@@ -120,5 +120,11 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# run composition manager
+exec_always --no-startup-id ~/.config/polybar/run-compton
+
+# run polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id feh --randomize --bg-fill ~/Pictures/wallpapers/*
+
+# run wallpaper
+exec_always --no-startup-id ~/.config/polybar/run-wallpaper-engine ~/Pictures/wallpapers 10

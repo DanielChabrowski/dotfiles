@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+if [ "$1" == "-h" ]; then
+    echo "Usage: wallpaper-engine WALLPAPERS_DIRECTORY INTERVAL"
+    exit 0
+fi
+
+readonly wallpapers_directory="$1"
+readonly interval="$2"
+
+while true; do
+    feh --randomize --bg-fill "$wallpapers_directory"/*
+    sleep "$interval"
+done
