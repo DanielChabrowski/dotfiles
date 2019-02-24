@@ -14,6 +14,8 @@ sudo apt-get update \
    htop \
    zsh \
    rofi \
+   feh \
+   compton \
    tmux \
    powerline \
    fonts-powerline \
@@ -57,8 +59,20 @@ cp "$cwd/i3/config" ~/.config/i3
 
 # Install polybar
 mkdir -p ~/.config/polybar
-cp "$cwd/polybar/config" ~/.config/polybar
-cp "$cwd/polybar/launch.sh" ~/.config/polybar
+cp -R "$cwd/polybar/"* ~/.config/polybar
+
+# Install xfc4-terminal settings
+mkdir -p ~/.config/xfce4/terminal
+cp "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
+
+# Install compton config
+cp "$cwd/compton/compton.conf" ~/.config/compton.conf
+
+# Install nerd fonts
+git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+./nerd-fonts/install.sh "Ubuntu"
+./nerd-fonts/install.sh "UbuntuMono"
+rm -rf nerd-fonts
 
 # Create default project directory
 mkdir -p ~/projects
