@@ -24,6 +24,7 @@ bindsym $mod+Shift+q kill
 # program launcher
 bindsym $mod+d exec rofi -show drun
 bindsym Mod1+Tab exec --no-startup-id "rofi -show combi run,window"
+bindsym Control+Escape exec --no-startup-id "rofi -show run"
 
 # Focus windows
 bindsym $mod+Left focus left
