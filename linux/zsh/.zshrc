@@ -19,6 +19,7 @@ DISABLE_AUTO_TITLE="true"
 plugins=(
   zsh-autosuggestions
   git
+  history-search-multi-word
 )
 
 source $ZSH/oh-my-zsh.sh

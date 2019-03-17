@@ -35,6 +35,10 @@ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/to
 # Install powerlevek9k
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
+# Install zsh plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zdharma/history-search-multi-word.git ~/.oh-my-zsh/custom/plugins/history-search-multi-word
+
 # Install zsh config
 cp "$cwd/zsh/.zshrc" ~/.zshrc
 
