@@ -65,9 +65,13 @@ cp "$cwd/i3/config" ~/.config/i3
 mkdir -p ~/.config/polybar
 cp -R "$cwd/polybar/"* ~/.config/polybar
 
-# Install xfc4-terminal settings
+# Install xfce4-terminal settings
 mkdir -p ~/.config/xfce4/terminal
 cp "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
+
+# Install xfce4-terminal theme
+git clone https://github.com/arcticicestudio/nord-xfce-terminal.git /tmp/xfce-theme
+bash /tmp/xfce-theme/install.sh
 
 # Install compton config
 cp "$cwd/compton/compton.conf" ~/.config/compton.conf
