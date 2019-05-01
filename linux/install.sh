@@ -12,6 +12,7 @@ sudo apt-get update \
    wget \
    tree \
    htop \
+   unzip \
    zsh \
    rofi \
    feh \
@@ -77,10 +78,19 @@ bash /tmp/xfce-theme/install.sh
 cp "$cwd/compton/compton.conf" ~/.config/compton.conf
 
 # Install nerd fonts
-git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-./nerd-fonts/install.sh "Ubuntu"
-./nerd-fonts/install.sh "UbuntuMono"
-rm -rf nerd-fonts
+readonly font_directory="$HOME/.local/share/fonts"
+
+for font_name in "Ubuntu" "UbuntuMono"; do
+  (
+    declare -r zip_file="$PWD/$font_name.zip"
+    wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/$font_name.zip"
+    trap 'rm $zip_file' EXIT
+    unzip -of -d "$font_directory" "$zip_file"
+  )
+done
+
+# Reset font cache
+fc-cache -f "$font_directory"
 
 # Create default project directory
 mkdir -p ~/projects
