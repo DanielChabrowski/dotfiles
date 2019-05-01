@@ -63,8 +63,9 @@ mkdir -p ~/.config/xfce4/terminal
 cp "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
 
 # Install xfce4-terminal theme
-git clone https://github.com/arcticicestudio/nord-xfce-terminal.git /tmp/xfce-theme
-bash /tmp/xfce-theme/install.sh
+readonly theme_directory="$HOME/.local/share/xfce4/terminal/colorschemes"
+mkdir -p "$theme_directory"
+wget https://raw.githubusercontent.com/arcticicestudio/nord-xfce-terminal/develop/src/nord.theme -O "$theme_directory/nord.theme"
 
 # Install nerd fonts
 readonly font_directory="$HOME/.local/share/fonts"
