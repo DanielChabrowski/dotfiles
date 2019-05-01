@@ -14,9 +14,6 @@ sudo apt-get update \
    htop \
    unzip \
    zsh \
-   rofi \
-   feh \
-   compton \
    tmux \
    powerline \
    fonts-powerline \
@@ -26,8 +23,6 @@ sudo apt-get update \
    linux-tools-common \
    git \
    cmake \
-   clang-format-6.0 \
-   clang-tidy-6.0 \
    valgrind
 
 # Install oh-my-zsh
