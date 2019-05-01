@@ -3,5 +3,12 @@ sudo: required
 services:
   - docker
 
-script:
-  - ./build.sh
+jobs:
+  include:
+    - name: "pre-commit"
+      language: python
+      install: pip install pre-commit
+      script: pre-commit run --all-files
+
+    - name: "docker build"
+      script: ./build.sh
