@@ -58,14 +58,6 @@ cp "$cwd/git/.gitconfig" ~/.gitconfig
 # Install gdb dashboard
 wget -P ~ git.io/.gdbinit
 
-# Install i3 config
-mkdir -p ~/.config/i3
-cp "$cwd/i3/config" ~/.config/i3
-
-# Install polybar
-mkdir -p ~/.config/polybar
-cp -R "$cwd/polybar/"* ~/.config/polybar
-
 # Install xfce4-terminal settings
 mkdir -p ~/.config/xfce4/terminal
 cp "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
@@ -73,9 +65,6 @@ cp "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
 # Install xfce4-terminal theme
 git clone https://github.com/arcticicestudio/nord-xfce-terminal.git /tmp/xfce-theme
 bash /tmp/xfce-theme/install.sh
-
-# Install compton config
-cp "$cwd/compton/compton.conf" ~/.config/compton.conf
 
 # Install nerd fonts
 readonly font_directory="$HOME/.local/share/fonts"

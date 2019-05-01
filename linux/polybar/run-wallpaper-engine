@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-pkill -f "polybar/wallpaper-engine"
-~/.config/polybar/wallpaper-engine "$@"
