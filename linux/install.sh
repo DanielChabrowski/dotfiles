@@ -5,25 +5,25 @@ set -euo
 readonly cwd="$(dirname "$(readlink -f "$0")")"
 
 sudo apt-get update \
-   && sudo apt-get install -y --no-install-recommends \
-   curl \
-   ca-certificates \
-   vim \
-   wget \
-   tree \
-   htop \
-   unzip \
-   zsh \
-   tmux \
-   powerline \
-   fonts-powerline \
-   python3-powerline \
-   apt-transport-https \
-   build-essential \
-   linux-tools-common \
-   git \
-   cmake \
-   valgrind
+    && sudo apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    vim \
+    wget \
+    tree \
+    htop \
+    unzip \
+    zsh \
+    tmux \
+    powerline \
+    fonts-powerline \
+    python3-powerline \
+    apt-transport-https \
+    build-essential \
+    linux-tools-common \
+    git \
+    cmake \
+    valgrind
 
 # Install oh-my-zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
@@ -66,12 +66,12 @@ wget https://raw.githubusercontent.com/arcticicestudio/nord-xfce-terminal/develo
 readonly font_directory="$HOME/.local/share/fonts"
 
 for font_name in "Ubuntu" "UbuntuMono"; do
-  (
+(
     declare -r zip_file="$PWD/$font_name.zip"
     wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/$font_name.zip"
     trap 'rm $zip_file' EXIT
     unzip -of -d "$font_directory" "$zip_file"
-  )
+)
 done
 
 # Reset font cache
