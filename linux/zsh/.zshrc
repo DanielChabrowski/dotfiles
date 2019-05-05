@@ -3,7 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir root_indicator vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir root_indicator vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_STATUS_VERBOSE=true
@@ -17,9 +17,11 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
 DISABLE_AUTO_TITLE="true"
 
 plugins=(
-  zsh-autosuggestions
-  git
-  history-search-multi-word
+    zsh-autosuggestions
+    git
+    history-search-multi-word
+    bgnotify
+    wd
 )
 
 source $ZSH/oh-my-zsh.sh
