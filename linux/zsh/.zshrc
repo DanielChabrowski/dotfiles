@@ -1,7 +1,9 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+export FZF_BASE="$HOME/.fzf"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir root_indicator vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status)
@@ -19,9 +21,10 @@ DISABLE_AUTO_TITLE="true"
 plugins=(
     zsh-autosuggestions
     git
-    history-search-multi-word
     bgnotify
     wd
+    colored-man-pages
+    fzf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -31,3 +34,5 @@ alias gd='git diff'
 alias gau='git add -u'
 alias gc='git commit'
 alias ga='git commit --amend'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
