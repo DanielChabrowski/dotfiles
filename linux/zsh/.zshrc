@@ -20,6 +20,7 @@ DISABLE_AUTO_TITLE="true"
 
 plugins=(
     zsh-autosuggestions
+    zsh-syntax-highlighting
     git
     bgnotify
     wd
