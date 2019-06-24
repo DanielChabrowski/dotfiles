@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export LESS="-i"
 export FZF_BASE="$HOME/.fzf"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -32,6 +33,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias gs='git status'
 alias gd='git diff'
+alias gdc='git diff --cached'
 alias gau='git add -u'
 alias gc='git commit'
 alias ga='git commit --amend'
