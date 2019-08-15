@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export LESS="-i"
+export LESS="-FRSXi"
 export FZF_BASE="$HOME/.fzf"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
