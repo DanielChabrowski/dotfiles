@@ -86,3 +86,7 @@ mkdir -p ~/projects
 
 # Set tmux as default shell
 chsh -s /usr/bin/tmux
+
+# Install emacs config
+mkdir ~/.emacs.d/
+ln -s "$cwd/emacs/init.el" ~/.emacs.d/init.el
