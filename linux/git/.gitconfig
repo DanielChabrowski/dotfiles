@@ -1,5 +1,5 @@
 [core]
-    editor = vim
+    editor = emacs
 [alias]
     lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr %an)%Creset' --abbrev-commit --date=relative
     tree = !git lg --graph

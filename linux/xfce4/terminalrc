@@ -30,7 +30,10 @@ ShortcutsNoHelpkey=TRUE
 ShortcutsNoMenukey=TRUE
 ShortcutsNoMnemonics=TRUE
 ColorForeground=#dcdcdc
-ColorBackground=#00e305800a3d
+ColorBackground=#131319192626
 ColorCursor=#dcdcdc
 ColorPalette=rgb(63,63,63);rgb(222,49,49);rgb(96,180,138);rgb(223,175,143);rgb(154,184,215);rgb(220,140,195);rgb(140,208,211);rgb(220,220,220);rgb(112,144,128);rgb(220,163,163);rgb(114,213,163);rgb(240,223,175);rgb(148,191,243);rgb(236,147,211);rgb(147,224,227);rgb(255,255,255)
 FontName=Ubuntu Mono 12
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
+BackgroundDarkness=0,920000
+

@@ -4,6 +4,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export LESS="-FRSXi"
 export FZF_BASE="$HOME/.fzf"
 
+setopt hist_ignore_all_dups
+
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir root_indicator vcs)

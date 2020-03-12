@@ -40,18 +40,19 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc
 
 # Install zsh config
-cp "$cwd/zsh/.zshrc" ~/.zshrc
+ln -sf "$cwd/zsh/.zshrc" ~/.zshrc
 
 # Install tmux config
-cp "$cwd/tmux/.tmux.conf" ~/.tmux.conf
+ln -sf "$cwd/tmux/.tmux.conf" ~/.tmux.conf
 
 # Install tmux plugins
 bash "$cwd/tmux/install_plugins.sh"
 
 # Install vimrc
-cp "$cwd/vim/.vimrc" ~/.vimrc
+ln -sf "$cwd/vim/.vimrc" ~/.vimrc
 
 # Install gitconfig
+# Keep cp here to avoid user settings in repo
 cp "$cwd/git/.gitconfig" ~/.gitconfig
 
 # Install gdb dashboard
@@ -59,7 +60,7 @@ wget -P ~ git.io/.gdbinit
 
 # Install xfce4-terminal settings
 mkdir -p ~/.config/xfce4/terminal
-cp "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
+ln -sf "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
 
 # Install xfce4-terminal theme
 readonly theme_directory="$HOME/.local/share/xfce4/terminal/colorschemes"
@@ -89,4 +90,4 @@ chsh -s /usr/bin/tmux
 
 # Install emacs config
 mkdir ~/.emacs.d/
-ln -s "$cwd/emacs/init.el" ~/.emacs.d/init.el
+ln -sf "$cwd/emacs/init.el" ~/.emacs.d/init.el
