@@ -11,7 +11,7 @@
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
  '(package-selected-packages
    (quote
-    (gitlab-ci-mode-flycheck gitlab-ci-mode cmake-mode smart-mode-line racer flycheck-rust rust-mode visual-regexp undo-tree highlight-symbol neotree dockerfile-mode magit py-autopep8 elpy cff xclip buffer-move move-text zoom-window flycheck-clang-tidy crux goto-line-preview smartparens clang-format yasnippet helm helm-swoop company-lsp company ccls lsp-ui lsp-mode))))
+    (markdown-preview-mode gitlab-ci-mode-flycheck gitlab-ci-mode cmake-mode smart-mode-line racer flycheck-rust rust-mode visual-regexp undo-tree highlight-symbol neotree dockerfile-mode magit py-autopep8 elpy cff xclip buffer-move move-text zoom-window flycheck-clang-tidy crux goto-line-preview smartparens clang-format yasnippet helm helm-swoop company-lsp company ccls lsp-ui lsp-mode))))
 
 ;; Disable GC for startup
 (setq gc-cons-threshold (* 500 1024 1024)
@@ -106,7 +106,6 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 
 (require 'helm-swoop)
-(setq helm-swoop-use-fuzzy-match t)
 (global-set-key (kbd "C-f") 'helm-swoop-without-pre-input)
 
 (require 'move-text)
@@ -148,7 +147,7 @@
 (setq xref-prompt-for-identifier '(not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references))
 
 (require 'flycheck)
-(setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc c/c++-cppcheck))
+(setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc c/c++-cppcheck emacs-lisp-checkdoc))
 (global-flycheck-mode)
 
 (require 'company)
@@ -218,3 +217,80 @@
     (setq rust-format-on-save t)
 )
 (add-hook 'rust-mode-hook 'rust-setup)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; https://stackoverflow.com/questions/1771102/changing-emacs-forward-word-behaviour
+(require 'cl)
+(defun my-syntax-class (char)
+  "Return ?s, ?w or ?p depending or whether CHAR is a white-space, word or punctuation character."
+  (pcase (char-syntax char)
+      (`?\s ?s)
+      (`?w ?w)
+      (`?_ ?w)
+      (_ ?p)))
+
+(defun my-forward-word (&optional arg)
+  "Move point forward a word (simulate behavior of Far Manager's editor).
+With prefix argument ARG, do it ARG times if positive, or move backwards ARG times if negative."
+  (interactive "^p")
+  (or arg (setq arg 1))
+  (let* ((backward (< arg 0))
+         (count (abs arg))
+         (char-next
+          (if backward 'char-before 'char-after))
+         (skip-syntax
+          (if backward 'skip-syntax-backward 'skip-syntax-forward))
+         (skip-char
+          (if backward 'backward-char 'forward-char))
+         prev-char next-char)
+    (while (> count 0)
+      (setq next-char (funcall char-next))
+      (loop
+       (if (or                          ; skip one char at a time for whitespace,
+            (eql next-char ?\n)         ; in order to stop on newlines
+            (eql (char-syntax next-char) ?\s))
+           (funcall skip-char)
+         (funcall skip-syntax (char-to-string (char-syntax next-char))))
+       (setq prev-char next-char)
+       (setq next-char (funcall char-next))
+       ;; (message (format "Prev: %c %c %c Next: %c %c %c"
+       ;;                   prev-char (char-syntax prev-char) (my-syntax-class prev-char)
+       ;;                   next-char (char-syntax next-char) (my-syntax-class next-char)))
+       (when
+           (or
+            (eql prev-char ?\n)         ; stop on newlines
+            (eql next-char ?\n)
+            (and                        ; stop on word -> punctuation
+             (eql (my-syntax-class prev-char) ?w)
+             (eql (my-syntax-class next-char) ?p))
+            (and                        ; stop on word -> whitespace
+             this-command-keys-shift-translated ; when selecting
+             (eql (my-syntax-class prev-char) ?w)
+             (eql (my-syntax-class next-char) ?s))
+            (and                        ; stop on whitespace -> non-whitespace
+             (not backward)             ; when going forward
+             (not this-command-keys-shift-translated) ; and not selecting
+             (eql (my-syntax-class prev-char) ?s)
+             (not (eql (my-syntax-class next-char) ?s)))
+            (and                        ; stop on non-whitespace -> whitespace
+             backward                   ; when going backward
+             (not this-command-keys-shift-translated) ; and not selecting
+             (not (eql (my-syntax-class prev-char) ?s))
+             (eql (my-syntax-class next-char) ?s))
+            )
+         (return))
+       )
+      (setq count (1- count)))))
+
+(defun my-backward-word (&optional arg)
+  (interactive "^p")
+  (or arg (setq arg 1))
+  (my-forward-word (- arg)))
+
+(global-set-key (kbd "C-<left>") 'my-backward-word)
+(global-set-key (kbd "C-<right>") 'my-forward-word)
