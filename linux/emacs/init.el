@@ -23,6 +23,9 @@
             (setq gc-cons-threshold (* 16 1024 1024)
                   gc-cons-percentage 0.1)))
 
+;; Increase data emacs can read from a process - mostly for LSP
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message (format "Emacs startup time: %s" (emacs-init-time)))))
@@ -33,7 +36,9 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
 
-(package-initialize)
+(when (< emacs-major-version 27)
+  (package-initialize))
+
 (package-install-selected-packages)
 
 ;; disable auto-save and auto-backup
@@ -48,6 +53,8 @@
 (setq-default c-basic-offset 4)
 
 (setq projectile-project-search-path '("~/projects/"))
+
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (cua-mode t) ;; enable cua-mode
 (menu-bar-mode -1) ;; disable menu bar
