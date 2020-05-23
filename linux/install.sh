@@ -8,7 +8,6 @@ sudo apt-get update \
     && sudo apt-get install -y --no-install-recommends \
     curl \
     ca-certificates \
-    vim \
     wget \
     tree \
     htop \
@@ -47,9 +46,6 @@ ln -sf "$cwd/tmux/.tmux.conf" ~/.tmux.conf
 
 # Install tmux plugins
 bash "$cwd/tmux/install_plugins.sh"
-
-# Install vimrc
-ln -sf "$cwd/vim/.vimrc" ~/.vimrc
 
 # Install gitconfig
 # Keep cp here to avoid user settings in repo
