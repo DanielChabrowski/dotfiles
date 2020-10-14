@@ -1,18 +1,3 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(elpy-modules
-   (quote
-    (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
- '(package-selected-packages
-   (quote
-    (markdown-preview-mode gitlab-ci-mode-flycheck gitlab-ci-mode cmake-mode smart-mode-line racer flycheck-rust rust-mode visual-regexp undo-tree highlight-symbol neotree dockerfile-mode magit py-autopep8 elpy cff xclip buffer-move move-text zoom-window flycheck-clang-tidy crux goto-line-preview smartparens clang-format yasnippet helm helm-swoop company-lsp company ccls lsp-ui lsp-mode))))
-
 ;; Disable GC for startup
 (setq gc-cons-threshold (* 500 1024 1024)
       gc-cons-percentage 0.6)
@@ -30,29 +15,52 @@
           (lambda ()
             (message (format "Emacs startup time: %s" (emacs-init-time)))))
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(when (file-exists-p custom-file)
+   (load custom-file))
+
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/"))
 
-(when (< emacs-major-version 27)
-  (package-initialize))
+(defun ensure-package-installed (&rest packages)
+  (mapc
+   (lambda (package)
+     (unless (package-installed-p package)
+       (package-install package)
+       ))
+   packages))
 
-(package-install-selected-packages)
+(package-initialize)
+
+(or (file-exists-p package-user-dir)
+    (package-refresh-contents))
+
+(ensure-package-installed 'use-package)
+(ensure-package-installed 'treemacs 'treemacs-projectile 'lsp-treemacs 'cmake-mode 'gitlab-ci-mode 'clang-format)
 
 ;; disable auto-save and auto-backup
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 
-(setq-default indent-tabs-mode nil) ;; disable tabs
+(defun indentation-style ()
+  (let ((space-count (how-many "^  " (point-min) (point-max)))
+        (tab-count (how-many "^\t" (point-min) (point-max))))
+    (if (> space-count tab-count) (setq indent-tabs-mode nil))
+    (if (> tab-count space-count) (setq indent-tabs-mode t))))
+(indentation-style)
+
 (setq-default truncate-lines 0) ;; disable line wrap
 
-(setq default-tab-width 4)
+(setq compilation-scroll-output t)
+
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
 
-(setq projectile-project-search-path '("~/projects/"))
+(setq use-package-always-ensure t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -65,7 +73,6 @@
 (line-number-mode t)
 
 (setq sml/theme 'dark)
-(smart-mode-line-enable t)
 (display-time-mode 0)
 
 (add-hook 'dired-mode-hook 'hl-line-mode)
@@ -88,10 +95,6 @@
 
 (global-set-key (kbd "<f2>") 'xref-find-definitions)
 (global-set-key (kbd "<f3>") 'xref-find-references)
-(global-set-key (kbd "<f5>") 'projectile-compile-project)
-(global-set-key (kbd "<f6>") 'helm-do-grep-ag)
-
-(global-set-key (kbd "C-x g") 'magit-status)
 
 (global-set-key (kbd "C-<up>") (lambda()
     (interactive)
@@ -101,90 +104,199 @@
     (interactive)
     (scroll-up 4)))
 
-(require 'helm)
-(helm-mode 1)
-(setq helm-follow-mode-persistent t)
-(setq helm-buffer-max-length nil)
-(setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
-(setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-
-(setq helm-M-x-fuzzy-match t)
-(global-set-key (kbd "M-x") 'helm-M-x)
-
-(require 'helm-swoop)
-(global-set-key (kbd "C-f") 'helm-swoop-without-pre-input)
-
-(require 'move-text)
-(global-set-key (kbd "C-S-<up>") 'move-text-up)
-(global-set-key (kbd "C-S-<down>") 'move-text-down)
-
-(require 'buffer-move)
-(global-set-key (kbd "M-<up>") 'buf-move-up)
-(global-set-key (kbd "M-<down>") 'buf-move-down)
-(global-set-key (kbd "M-<left>") 'buf-move-left)
-(global-set-key (kbd "M-<right>") 'buf-move-right)
-
-(require 'goto-line-preview)
-(global-set-key (kbd "C-l") 'goto-line-preview)
-
-(require 'visual-regexp)
-
-(require 'zoom-window)
-(global-set-key (kbd "C-x z") 'zoom-window-zoom)
-
-(require 'crux)
-(global-set-key (kbd "S-<delete>") 'crux-kill-whole-line)
-(global-set-key (kbd "C-d") 'crux-duplicate-current-line-or-region)
-
-(require 'cff)
-(global-set-key (kbd "<f4>") 'cff-find-other-file)
-
-(require 'smartparens)
-(smartparens-global-mode)
-
-(require 'xclip)
-(xclip-mode 1)
-
-(require 'company-lsp)
-(push 'company-lsp company-backends)
-(setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
-
-;; all languages
-(setq xref-prompt-for-identifier '(not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references))
-
-(require 'flycheck)
-(setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc c/c++-cppcheck emacs-lisp-checkdoc))
-(global-flycheck-mode)
-
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-
-(require 'yasnippet)
-(add-hook 'after-init-hook 'yas-global-mode)
-
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; python config
-(elpy-enable)
-
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-
-;; c++ config
-(defun my-c-mode-hook()
-  (require 'ccls)
-  (setq ccls-executable "/usr/local/bin/ccls")
-
-  (setq lsp-ui-sideline-show-hover nil)
-  (setq lsp-enable-file-watchers nil)
-  (lsp)
-  (lsp-mode)
-
-  (global-set-key (kbd "<f2>") 'lsp-find-definition)
-  (global-set-key (kbd "<f3>") 'lsp-find-references)
+(use-package undo-tree
+  :ensure t
+  :config
+    (global-undo-tree-mode)
 )
-(add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
+(use-package smart-mode-line
+  :ensure t
+  :config
+    (smart-mode-line-enable t)
+)
+
+(use-package projectile
+  :ensure t
+  :init
+    (setq projectile-project-search-path '("~/projects/"))
+  :bind (:map global-map
+              ("<f5>" . projectile-compile-project)
+              ("<f6>" . projectile-run-project)
+              ("<f7>" . projectile-test-project)
+        )
+)
+
+(use-package magit
+  :ensure t
+  :bind (:map global-map
+              ("C-x g" . magit-status)
+        )
+)
+
+(use-package treemacs
+  :ensure t
+  :bind
+  (:map global-map
+        ("C-x t 1" . treemacs-delete-other-windows)
+        ("C-x t t" . treemacs)
+        ("C-x t B" . treemacs-bookmark))
+)
+
+(use-package helm
+  :ensure t
+  :bind (:map global-map
+              ("M-x" . helm-M-x)
+              ("C-x b" . helm-buffers-list)
+        )
+  :init
+    (setq helm-M-x-fuzzy-match t)
+    (setq helm-follow-mode-persistent t)
+    (setq helm-buffer-max-length nil)
+    (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
+    (setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
+  :config
+    (helm-mode 1)
+)
+
+(use-package helm-swoop
+  :ensure t
+  :bind (:map global-map
+              ("C-f" . helm-swoop-without-pre-input)
+        )
+)
+
+(use-package move-text
+  :ensure t
+  :bind (:map global-map
+              ("C-S-<up>" . move-text-up)
+              ("C-S-<down>" . move-text-down)
+        )
+)
+
+(use-package buffer-move
+  :ensure t
+  :bind (:map global-map
+              ("M-<up>" . buf-move-up)
+              ("M-<down>" . buf-move-down)
+              ("M-<left>" . buf-move-left)
+              ("M-<right>" . buf-move-right)
+        )
+)
+
+(use-package goto-line-preview
+  :ensure t
+  :bind (:map global-map
+              ("C-l" . goto-line-preview)
+        )
+)
+
+(use-package visual-regexp
+  :ensure t
+  :defer t
+)
+
+(use-package zoom-window
+  :ensure t
+  :bind (:map global-map
+              ("C-x z" . zoom-window-zoom)
+        )
+)
+
+(use-package crux
+  :ensure t
+  :bind (:map global-map
+              ("S-<delete>" . crux-kill-whole-line)
+              ("C-d" . crux-duplicate-current-line-or-region)
+        )
+)
+
+(use-package cff
+  :ensure t
+  :bind (:map global-map
+              ("<f4>" . cff-find-other-file)
+        )
+)
+
+(use-package smartparens
+  :ensure t
+  :defer t
+  :config
+    (smartparens-global-mode)
+)
+
+(use-package xclip
+  :ensure t
+  :config
+    (xclip-mode 1)
+)
+
+(use-package company
+  :ensure t
+  :defer t
+  :config
+    (global-company-mode)
+)
+
+(use-package company-lsp
+  :ensure t
+  :defer t
+  :init
+    (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
+    (setq xref-prompt-for-identifier '(not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references))
+  :config
+    (push 'company-lsp company-backends)
+)
+
+(use-package flycheck
+  :ensure t
+  :init
+    (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc c/c++-cppcheck emacs-lisp-checkdoc))
+  :config
+    (global-flycheck-mode)
+)
+
+(use-package yasnippet
+  :ensure t
+  :defer t
+  :config
+    (yas-global-mode)
+)
+
+(use-package elpy
+  :ensure t
+  :defer t
+  :config
+    (elpy-enable)
+)
+
+(use-package py-autopep8
+  :ensure t
+  :defer t
+  :config
+    (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+)
+
+(use-package ccls
+  :ensure t
+  :defer t
+  :bind (:map lsp-mode-map
+              ("<f2>" . lsp-find-definition)
+              ("<f3>" . lsp-find-references)
+        )
+  :init
+    (setq ccls-executable "/usr/local/bin/ccls")
+    (setq lsp-ui-sideline-show-hover nil)
+    (setq lsp-enable-file-watchers nil)
+    (add-hook 'c-mode-common-hook
+              (lambda()
+                (lsp)
+                (lsp-mode)
+                )
+              )
+)
 
 (defun clang-format-buffer-when-used()
   "Only use clang-format when it's in the project root."
@@ -195,44 +307,39 @@
 (add-hook 'c++-mode-hook
   (lambda () (add-to-list 'write-contents-functions 'clang-format-buffer-when-used)))
 
-;; dockerfile
-(require 'dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
-
-;; yaml
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-
-(setq gdb-many-windows t
-      gdb-use-separate-io-buffer t)
-
-(advice-add 'gdb-setup-windows :after
-            (lambda () (set-window-dedicated-p (selected-window) t)))
-
-
-(advice-add 'gud-sentinel :after
-            (lambda (proc msg)
-              (when (memq (process-status proc) '(signal exit))
-                (jump-to-register gud-window-register)
-                (bury-buffer))))
-
-(add-hook 'rust-mode-hook #'flycheck-rust-setup)
-
-(defun rust-setup()
-    (racer-mode)
-    (global-set-key (kbd "<f2>") 'racer-find-definition)
-    (setq rust-format-on-save t)
+(use-package dockerfile-mode
+  :ensure t
+  :defer t
+  :init
+    (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 )
-(add-hook 'rust-mode-hook 'rust-setup)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+(use-package yaml-mode
+  :ensure t
+  :defer t
+  :init
+    (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+)
+
+(use-package rust-mode
+  :init
+    (setq rust-format-on-save t)
+  :bind (:map rust-mode-map
+              ("M-RET" . lsp-execute-code-action)
+             ))
+
+(use-package lsp-mode
+  :defer t
+  :mode ("\\.rs$" . rust-mode)
+  :hook ((rust-mode . lsp))
+  :config
+    (setq lsp-log-io t)
+    (setq lsp-rust-server 'rust-analyzer))
+
+(use-package cargo
+  :hook (rust-mode . cargo-minor-mode))
 
 ;; https://stackoverflow.com/questions/1771102/changing-emacs-forward-word-behaviour
-(require 'cl)
 (defun my-syntax-class (char)
   "Return ?s, ?w or ?p depending or whether CHAR is a white-space, word or punctuation character."
   (pcase (char-syntax char)
@@ -257,7 +364,7 @@ With prefix argument ARG, do it ARG times if positive, or move backwards ARG tim
          prev-char next-char)
     (while (> count 0)
       (setq next-char (funcall char-next))
-      (loop
+      (cl-loop
        (if (or                          ; skip one char at a time for whitespace,
             (eql next-char ?\n)         ; in order to stop on newlines
             (eql (char-syntax next-char) ?\s))
@@ -290,7 +397,7 @@ With prefix argument ARG, do it ARG times if positive, or move backwards ARG tim
              (not (eql (my-syntax-class prev-char) ?s))
              (eql (my-syntax-class next-char) ?s))
             )
-         (return))
+         (cl-return))
        )
       (setq count (1- count)))))
 
@@ -301,3 +408,9 @@ With prefix argument ARG, do it ARG times if positive, or move backwards ARG tim
 
 (global-set-key (kbd "C-<left>") 'my-backward-word)
 (global-set-key (kbd "C-<right>") 'my-forward-word)
+
+(global-set-key (kbd "<f9>") (lambda(arg)
+                               (interactive "P")
+                               (require 'projectile)
+                               (require 'helm-files)
+                               (helm-grep-ag (projectile-project-root) arg)))
