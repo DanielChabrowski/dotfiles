@@ -44,9 +44,6 @@ ln -sf "$cwd/zsh/.zshrc" ~/.zshrc
 # Install tmux config
 ln -sf "$cwd/tmux/.tmux.conf" ~/.tmux.conf
 
-# Install tmux plugins
-bash "$cwd/tmux/install_plugins.sh"
-
 # Install gitconfig
 # Keep cp here to avoid user settings in repo
 cp "$cwd/git/.gitconfig" ~/.gitconfig

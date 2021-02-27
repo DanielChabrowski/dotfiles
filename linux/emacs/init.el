@@ -287,7 +287,7 @@
               ("<f3>" . lsp-find-references)
         )
   :init
-    (setq ccls-executable "/usr/local/bin/ccls")
+    (setq ccls-executable "/usr/bin/ccls")
     (setq lsp-ui-sideline-show-hover nil)
     (setq lsp-enable-file-watchers nil)
     (add-hook 'c-mode-common-hook
@@ -324,17 +324,16 @@
 (use-package rust-mode
   :init
     (setq rust-format-on-save t)
+    (setq lsp-rust-server 'rust-analyzer)
   :bind (:map rust-mode-map
               ("M-RET" . lsp-execute-code-action)
              ))
 
 (use-package lsp-mode
-  :defer t
-  :mode ("\\.rs$" . rust-mode)
-  :hook ((rust-mode . lsp))
-  :config
-    (setq lsp-log-io t)
-    (setq lsp-rust-server 'rust-analyzer))
+  :ensure t
+  :hook ((python-mode . lsp)
+         (rust-mode . lsp))
+)
 
 (use-package cargo
   :hook (rust-mode . cargo-minor-mode))
@@ -347,67 +346,6 @@
       (`?w ?w)
       (`?_ ?w)
       (_ ?p)))
-
-(defun my-forward-word (&optional arg)
-  "Move point forward a word (simulate behavior of Far Manager's editor).
-With prefix argument ARG, do it ARG times if positive, or move backwards ARG times if negative."
-  (interactive "^p")
-  (or arg (setq arg 1))
-  (let* ((backward (< arg 0))
-         (count (abs arg))
-         (char-next
-          (if backward 'char-before 'char-after))
-         (skip-syntax
-          (if backward 'skip-syntax-backward 'skip-syntax-forward))
-         (skip-char
-          (if backward 'backward-char 'forward-char))
-         prev-char next-char)
-    (while (> count 0)
-      (setq next-char (funcall char-next))
-      (cl-loop
-       (if (or                          ; skip one char at a time for whitespace,
-            (eql next-char ?\n)         ; in order to stop on newlines
-            (eql (char-syntax next-char) ?\s))
-           (funcall skip-char)
-         (funcall skip-syntax (char-to-string (char-syntax next-char))))
-       (setq prev-char next-char)
-       (setq next-char (funcall char-next))
-       ;; (message (format "Prev: %c %c %c Next: %c %c %c"
-       ;;                   prev-char (char-syntax prev-char) (my-syntax-class prev-char)
-       ;;                   next-char (char-syntax next-char) (my-syntax-class next-char)))
-       (when
-           (or
-            (eql prev-char ?\n)         ; stop on newlines
-            (eql next-char ?\n)
-            (and                        ; stop on word -> punctuation
-             (eql (my-syntax-class prev-char) ?w)
-             (eql (my-syntax-class next-char) ?p))
-            (and                        ; stop on word -> whitespace
-             this-command-keys-shift-translated ; when selecting
-             (eql (my-syntax-class prev-char) ?w)
-             (eql (my-syntax-class next-char) ?s))
-            (and                        ; stop on whitespace -> non-whitespace
-             (not backward)             ; when going forward
-             (not this-command-keys-shift-translated) ; and not selecting
-             (eql (my-syntax-class prev-char) ?s)
-             (not (eql (my-syntax-class next-char) ?s)))
-            (and                        ; stop on non-whitespace -> whitespace
-             backward                   ; when going backward
-             (not this-command-keys-shift-translated) ; and not selecting
-             (not (eql (my-syntax-class prev-char) ?s))
-             (eql (my-syntax-class next-char) ?s))
-            )
-         (cl-return))
-       )
-      (setq count (1- count)))))
-
-(defun my-backward-word (&optional arg)
-  (interactive "^p")
-  (or arg (setq arg 1))
-  (my-forward-word (- arg)))
-
-(global-set-key (kbd "C-<left>") 'my-backward-word)
-(global-set-key (kbd "C-<right>") 'my-forward-word)
 
 (global-set-key (kbd "<f9>") (lambda(arg)
                                (interactive "P")
