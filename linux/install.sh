@@ -21,29 +21,21 @@ sudo apt-get update \
     apt-transport-https \
     build-essential \
     linux-tools-common \
-    git \
     cmake \
     valgrind
 
-# Install oh-my-zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
-# Install powerlevel10k
 git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
-
-# Install zsh plugins
 git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
-# Install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc
 
-# Install zsh config
 ln -sf "$cwd/zsh/.zshrc" ~/.zshrc
-
-# Install tmux config
 ln -sf "$cwd/tmux/.tmux.conf" ~/.tmux.conf
+ln -sf "$cwd/emacs/init.el" ~/.emacs.d/init.el
 
 # Install gitconfig
 # Keep cp here to avoid user settings in repo
@@ -81,7 +73,3 @@ mkdir -p ~/projects
 
 # Set tmux as default shell
 chsh -s /usr/bin/tmux
-
-# Install emacs config
-mkdir ~/.emacs.d/
-ln -sf "$cwd/emacs/init.el" ~/.emacs.d/init.el

@@ -3,6 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export LESS="-FRSXi"
 export FZF_BASE="$HOME/.fzf"
+export EDITOR="emacs"
 
 setopt hist_ignore_all_dups
 
