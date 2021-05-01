@@ -338,15 +338,6 @@
 (use-package cargo
   :hook (rust-mode . cargo-minor-mode))
 
-;; https://stackoverflow.com/questions/1771102/changing-emacs-forward-word-behaviour
-(defun my-syntax-class (char)
-  "Return ?s, ?w or ?p depending or whether CHAR is a white-space, word or punctuation character."
-  (pcase (char-syntax char)
-      (`?\s ?s)
-      (`?w ?w)
-      (`?_ ?w)
-      (_ ?p)))
-
 (global-set-key (kbd "<f9>") (lambda(arg)
                                (interactive "P")
                                (require 'projectile)
