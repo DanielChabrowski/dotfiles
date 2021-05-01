@@ -18,7 +18,7 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (when (file-exists-p custom-file)
-   (load custom-file))
+  (load custom-file))
 
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
@@ -40,7 +40,13 @@
     (package-refresh-contents))
 
 (ensure-package-installed 'use-package)
-(ensure-package-installed 'treemacs 'treemacs-projectile 'lsp-treemacs 'cmake-mode 'gitlab-ci-mode 'clang-format)
+(ensure-package-installed
+ 'treemacs
+ 'treemacs-projectile
+ 'lsp-treemacs
+ 'cmake-mode
+ 'gitlab-ci-mode
+ 'clang-format)
 
 ;; disable auto-save and auto-backup
 (setq auto-save-default nil)
@@ -77,6 +83,7 @@
 
 (add-hook 'dired-mode-hook 'hl-line-mode)
 
+;; TODO: use-package with repo url?
 (load "~/projects/fzf.el/fzf.el")
 
 ;; environment
