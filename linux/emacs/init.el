@@ -66,7 +66,7 @@
 
 (cua-mode t) ;; enable cua-mode
 (menu-bar-mode -1) ;; disable menu bar
-(global-display-line-numbers-mode) ;; show line numbers
+;; (global-display-line-numbers-mode) ;; show line numbers
 (show-paren-mode) ;; enable paren matching
 
 (column-number-mode t)
