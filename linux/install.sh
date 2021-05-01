@@ -2,7 +2,8 @@
 
 set -euo
 
-readonly cwd="$(dirname "$(readlink -f "$0")")"
+cwd="$(dirname "$(readlink -f "$0")")"
+readonly cwd
 
 sudo apt-get update \
     && sudo apt-get install -y --no-install-recommends \
