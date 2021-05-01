@@ -1,6 +1,6 @@
-# Dotfiles #
+# dotfiles #
 
-[![Build Status](https://travis-ci.org/DanielChabrowski/dotfiles.svg?branch=master)](https://travis-ci.org/DanielChabrowski/dotfiles)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/DanielChabrowski/dotfiles/master.svg)](https://results.pre-commit.ci/latest/github/DanielChabrowski/dotfiles/master)
 
 Collection of configuration, settings, scripts, snippets that I use
 
