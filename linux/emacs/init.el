@@ -82,6 +82,7 @@
 (display-time-mode 0)
 
 (add-hook 'dired-mode-hook 'hl-line-mode)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; key bindings
 (global-set-key (kbd "C-s") 'save-buffer)
@@ -103,8 +104,6 @@
 (global-set-key (kbd "C-<down>") (lambda()
     (interactive)
     (scroll-up 4)))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package undo-tree
   :ensure t
