@@ -289,20 +289,6 @@
 (use-package ccls
   :ensure t
   :defer t
-  :bind (:map lsp-mode-map
-              ("<f2>" . lsp-find-definition)
-              ("<f3>" . lsp-find-references)
-        )
-  :init
-    (setq ccls-executable "/usr/bin/ccls")
-    (setq lsp-ui-sideline-show-hover nil)
-    (setq lsp-enable-file-watchers nil)
-    (add-hook 'c-mode-common-hook
-              (lambda()
-                (lsp)
-                (lsp-mode)
-                )
-              )
 )
 
 (defun clang-format-buffer-when-used()
@@ -317,30 +303,37 @@
 (use-package dockerfile-mode
   :ensure t
   :defer t
-  :init
-    (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 )
 
 (use-package yaml-mode
   :ensure t
   :defer t
-  :init
-    (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 )
 
 (use-package rust-mode
   :init
     (setq rust-format-on-save t)
-    (setq lsp-rust-server 'rust-analyzer)
   :bind (:map rust-mode-map
               ("M-RET" . lsp-execute-code-action)
-             ))
+              ))
 
 (use-package lsp-mode
   :ensure t
+  :init (setq lsp-enable-file-watchers nil)
   :hook ((python-mode . lsp)
-         (rust-mode . lsp))
+         (rust-mode . lsp)
+         (c++-mode . lsp)
+         (c-mode . lsp))
+  :bind (:map lsp-mode-map
+              ("<f2>" . lsp-find-definition)
+              ("<f3>" . lsp-find-references)
+              )
 )
+
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :init
+    (setq lsp-ui-sideline-show-hover nil))
 
 (use-package cargo
   :hook (rust-mode . cargo-minor-mode))
