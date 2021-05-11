@@ -77,8 +77,6 @@
 
 (column-number-mode t)
 (line-number-mode t)
-
-(setq sml/theme 'dark)
 (display-time-mode 0)
 
 (add-hook 'dired-mode-hook 'hl-line-mode)
@@ -122,7 +120,8 @@
 (use-package smart-mode-line
   :ensure t
   :config
-    (smart-mode-line-enable t)
+    (setq sml/theme 'dark)
+    (sml/setup)
 )
 
 (use-package projectile
