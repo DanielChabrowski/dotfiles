@@ -57,7 +57,9 @@
         (tab-count (how-many "^\t" (point-min) (point-max))))
     (if (> space-count tab-count) (setq indent-tabs-mode nil))
     (if (> tab-count space-count) (setq indent-tabs-mode t))))
-(indentation-style)
+
+(add-hook 'text-mode-hook 'indentation-style)
+(add-hook 'prog-mode-hook 'indentation-style)
 
 (setq-default truncate-lines 0) ;; disable line wrap
 
