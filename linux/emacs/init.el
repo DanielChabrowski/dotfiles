@@ -345,6 +345,11 @@
 (use-package cargo
   :hook (rust-mode . cargo-minor-mode))
 
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 (global-set-key (kbd "<f9>") (lambda(arg)
                                (interactive "P")
                                (require 'projectile)
