@@ -84,7 +84,14 @@
 (add-hook 'dired-mode-hook 'hl-line-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; TODO: use-package with repo url?
+(load "~/projects/fzf.el/fzf.el")
+
+;; environment
+(setenv "FZF_DEFAULT_COMMAND" "rg --files --hidden -g '!.*/' -g '![Bb]uild/' -g '!.o'")
+
 ;; key bindings
+(global-set-key (kbd "C-k") 'fzf-projectile)
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-w") 'kill-current-buffer)
 (global-set-key (kbd "C-x C-c") 'kill-emacs)
@@ -129,26 +136,20 @@
         )
 )
 
-(use-package fzf
-  :ensure t
-  :init
-    (setenv "FZF_DEFAULT_COMMAND" "rg --files --hidden -g '!.*/' -g '![Bb]uild/' -g '!.o'")
-  :bind (:map global-map
-              ("C-k" . fzf-projectile))
-)
-
 (use-package magit
   :ensure t
   :bind (:map global-map
-              ("C-x g" . magit-status))
+              ("C-x g" . magit-status)
+        )
 )
 
 (use-package treemacs
   :ensure t
-  :bind (:map global-map
-              ("C-x t 1" . treemacs-delete-other-windows)
-              ("C-x t t" . treemacs)
-              ("C-x t B" . treemacs-bookmark))
+  :bind
+  (:map global-map
+        ("C-x t 1" . treemacs-delete-other-windows)
+        ("C-x t t" . treemacs)
+        ("C-x t B" . treemacs-bookmark))
 )
 
 (use-package helm
