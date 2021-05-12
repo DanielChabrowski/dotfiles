@@ -72,6 +72,8 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(setq dired-listing-switches "-lah")
+
 (cua-mode t) ;; enable cua-mode
 (menu-bar-mode -1) ;; disable menu bar
 ;; (global-display-line-numbers-mode) ;; show line numbers
