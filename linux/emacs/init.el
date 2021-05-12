@@ -86,14 +86,7 @@
 (add-hook 'dired-mode-hook 'hl-line-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; TODO: use-package with repo url?
-(load "~/projects/fzf.el/fzf.el")
-
-;; environment
-(setenv "FZF_DEFAULT_COMMAND" "rg --files --hidden -g '!.*/' -g '![Bb]uild/' -g '!.o'")
-
 ;; key bindings
-(global-set-key (kbd "C-k") 'fzf-projectile)
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-w") 'kill-current-buffer)
 (global-set-key (kbd "C-x C-c") 'kill-emacs)
@@ -113,6 +106,13 @@
 (global-set-key (kbd "C-<down>") (lambda()
     (interactive)
     (scroll-up 4)))
+
+(use-package fzf
+  :ensure t
+  :load-path "~/projects/fzf.el"
+  :init
+    (setenv "FZF_DEFAULT_COMMAND" "rg --files --hidden -g '!.*/' -g '![Bb]uild/' -g '!.o'")
+  :bind (:map global-map ("C-k" . fzf-projectile)))
 
 (use-package undo-tree
   :ensure t
