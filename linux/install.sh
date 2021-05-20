@@ -5,25 +5,6 @@ set -euo
 cwd="$(dirname "$(readlink -f "$0")")"
 readonly cwd
 
-sudo apt-get update \
-    && sudo apt-get install -y --no-install-recommends \
-    curl \
-    ca-certificates \
-    wget \
-    tree \
-    htop \
-    unzip \
-    zsh \
-    tmux \
-    powerline \
-    fonts-powerline \
-    python3-powerline \
-    apt-transport-https \
-    build-essential \
-    linux-tools-common \
-    cmake \
-    valgrind
-
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
