@@ -18,10 +18,6 @@ ln -sf "$cwd/zsh/.zshrc" ~/.zshrc
 ln -sf "$cwd/tmux/.tmux.conf" ~/.tmux.conf
 ln -sf "$cwd/emacs/init.el" ~/.emacs.d/init.el
 
-# Install gitconfig
-# Keep cp here to avoid user settings in repo
-cp "$cwd/git/.gitconfig" ~/.gitconfig
-
 # Install gdb dashboard
 wget -P ~ git.io/.gdbinit
 
