@@ -249,16 +249,6 @@
     (global-company-mode)
 )
 
-(use-package company-lsp
-  :ensure t
-  :defer t
-  :init
-    (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
-    (setq xref-prompt-for-identifier '(not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references))
-  :config
-    (push 'company-lsp company-backends)
-)
-
 (use-package flycheck
   :ensure t
   :init
