@@ -108,7 +108,6 @@
     (scroll-up 4)))
 
 (use-package fzf
-  :ensure t
   :load-path "~/projects/fzf.el"
   :init
     (setenv "FZF_DEFAULT_COMMAND" "rg --files --hidden -g '!.*/' -g '![Bb]uild/' -g '!.o'")
