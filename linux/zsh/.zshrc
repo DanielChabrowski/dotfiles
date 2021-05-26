@@ -1,9 +1,14 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export PATH="$PATH:$HOME/.cargo/bin"
 export LESS="-FRSXi"
 export FZF_BASE="$HOME/.fzf"
 export EDITOR="emacs"
+
+if [[ $+commands[sccache] ]]; then
+    export RUSTC_WRAPPER=$(which sccache)
+fi
 
 setopt hist_ignore_all_dups
 
@@ -22,21 +27,26 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
 
+ZSH_TMUX_AUTOSTART=true
+
 plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
-    git
+    gitfast
     bgnotify
     wd
     colored-man-pages
     fzf
+    tmux
+    cargo
+    extract
+    helm
 )
 
 source $ZSH/oh-my-zsh.sh
 
 alias gs='git status'
 alias gd='git diff'
-alias gdc='git diff --cached'
 alias gau='git add -u'
 alias gc='git commit'
 alias ga='git commit --amend'
