@@ -14,8 +14,8 @@ setopt hist_ignore_all_dups
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir root_indicator vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status command_execution_time virtualenv dir root_indicator vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_STATUS_VERBOSE=true
 POWERLEVEL9K_DISABLE_RPROMPT=true
@@ -50,5 +50,6 @@ alias gd='git diff'
 alias gau='git add -u'
 alias gc='git commit'
 alias ga='git commit --amend'
+alias gf='git fetch'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
