@@ -44,7 +44,6 @@
  'treemacs
  'treemacs-projectile
  'lsp-treemacs
- 'cmake-mode
  'gitlab-ci-mode
  'clang-format)
 
@@ -163,7 +162,7 @@
     (setq helm-M-x-fuzzy-match t)
     (setq helm-follow-mode-persistent t)
     (setq helm-buffer-max-length nil)
-    (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
+    (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --hidden --smart-case --no-heading --line-number %s %s %s")
     (setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
   :config
     (helm-mode 1)
@@ -254,6 +253,13 @@
     (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc c/c++-cppcheck emacs-lisp-checkdoc))
   :config
     (global-flycheck-mode)
+    (add-to-list 'display-buffer-alist
+                 `(,(rx bos "*Flycheck errors*" eos)
+                   (display-buffer-reuse-window
+                    display-buffer-in-side-window)
+                   (side            . bottom)
+                   (reusable-frames . visible)
+                   (window-height   . 0.25)))
 )
 
 (use-package yasnippet
@@ -282,6 +288,11 @@
   :defer t
 )
 
+(use-package cmake-mode
+  :ensure t
+  :defer t
+)
+
 (defun clang-format-buffer-when-used()
   "Only use clang-format when it's in the project root."
   (when (locate-dominating-file "." ".clang-format")
@@ -306,7 +317,8 @@
     (setq rust-format-on-save t)
   :bind (:map rust-mode-map
               ("M-RET" . lsp-execute-code-action)
-              ))
+              )
+)
 
 (use-package lsp-mode
   :ensure t
@@ -324,7 +336,9 @@
 (use-package lsp-ui
   :commands lsp-ui-mode
   :init
-    (setq lsp-ui-sideline-show-hover nil))
+    (setq lsp-lens-enable nil)
+    (setq lsp-ui-sideline-show-hover nil)
+)
 
 (use-package cargo
   :hook (rust-mode . cargo-minor-mode))
@@ -332,10 +346,11 @@
 (use-package editorconfig
   :ensure t
   :config
-  (editorconfig-mode 1))
+    (editorconfig-mode 1)
+)
 
 (global-set-key (kbd "<f9>") (lambda(arg)
                                (interactive "P")
                                (require 'projectile)
                                (require 'helm-files)
-                               (helm-grep-ag (projectile-project-root) arg)))
+                               (helm-grep-ag (projectile-project-root) nil)))
