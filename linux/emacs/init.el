@@ -20,6 +20,8 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(setq inhibit-startup-screen t)
+
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (require 'package)
@@ -74,7 +76,9 @@
 (setq dired-listing-switches "-lah")
 
 (cua-mode t) ;; enable cua-mode
-(menu-bar-mode -1) ;; disable menu bar
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(toggle-scroll-bar -1)
 ;; (global-display-line-numbers-mode) ;; show line numbers
 (show-paren-mode) ;; enable paren matching
 
@@ -162,7 +166,7 @@
     (setq helm-M-x-fuzzy-match t)
     (setq helm-follow-mode-persistent t)
     (setq helm-buffer-max-length nil)
-    (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --hidden --smart-case --no-heading --line-number %s %s %s")
+    (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
     (setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
   :config
     (helm-mode 1)
