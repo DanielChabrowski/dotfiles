@@ -78,7 +78,7 @@
 (cua-mode t) ;; enable cua-mode
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-(toggle-scroll-bar -1)
+;; (toggle-scroll-bar -1) ;; toggle-scroll-bar is not defined in emacs-nox...
 ;; (global-display-line-numbers-mode) ;; show line numbers
 (show-paren-mode) ;; enable paren matching
 
@@ -271,6 +271,13 @@
   :defer t
   :config
     (yas-global-mode)
+)
+
+(use-package perspective
+  :ensure t
+  :defer t
+  :config
+    (persp-mode)
 )
 
 (use-package elpy
