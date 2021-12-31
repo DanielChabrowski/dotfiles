@@ -38,7 +38,7 @@ plugins=(
     colored-man-pages
     fzf
     tmux
-    cargo
+    rust
     extract
     helm
 )
