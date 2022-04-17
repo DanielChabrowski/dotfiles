@@ -118,6 +118,8 @@
 
 (use-package undo-tree
   :ensure t
+  :init
+    (setq undo-tree-auto-save-history nil)
   :config
     (global-undo-tree-mode)
 )
