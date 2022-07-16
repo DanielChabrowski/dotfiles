@@ -49,8 +49,8 @@
  'gitlab-ci-mode
  'clang-format)
 
-(eval-and-compile
-  (setq use-package-always-ensure t))
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
 ;; disable auto-save and auto-backup
 (setq auto-save-default nil)
