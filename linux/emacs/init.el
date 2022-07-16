@@ -49,6 +49,9 @@
  'gitlab-ci-mode
  'clang-format)
 
+(eval-and-compile
+  (setq use-package-always-ensure t))
+
 ;; disable auto-save and auto-backup
 (setq auto-save-default nil)
 (setq make-backup-files nil)
@@ -68,8 +71,6 @@
 
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
-
-(setq use-package-always-ensure t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -117,7 +118,6 @@
   :bind (:map global-map ("C-k" . fzf-projectile)))
 
 (use-package undo-tree
-  :ensure t
   :init
     (setq undo-tree-auto-save-history nil)
   :config
@@ -125,14 +125,12 @@
 )
 
 (use-package smart-mode-line
-  :ensure t
   :config
     (setq sml/theme 'dark)
     (sml/setup)
 )
 
 (use-package projectile
-  :ensure t
   :init
     (setq projectile-project-search-path '("~/projects/"))
   :bind (:map global-map
@@ -143,14 +141,12 @@
 )
 
 (use-package magit
-  :ensure t
   :bind (:map global-map
               ("C-x g" . magit-status)
         )
 )
 
 (use-package treemacs
-  :ensure t
   :bind
   (:map global-map
         ("C-x t 1" . treemacs-delete-other-windows)
@@ -159,7 +155,6 @@
 )
 
 (use-package helm
-  :ensure t
   :demand t
   :bind (:map global-map
               ("M-x" . helm-M-x)
@@ -176,14 +171,12 @@
 )
 
 (use-package helm-swoop
-  :ensure t
   :bind (:map global-map
               ("C-f" . helm-swoop-without-pre-input)
         )
 )
 
 (use-package move-text
-  :ensure t
   :bind (:map global-map
               ("C-S-<up>" . move-text-up)
               ("C-S-<down>" . move-text-down)
@@ -191,7 +184,6 @@
 )
 
 (use-package buffer-move
-  :ensure t
   :bind (:map global-map
               ("M-<up>" . buf-move-up)
               ("M-<down>" . buf-move-down)
@@ -201,26 +193,22 @@
 )
 
 (use-package goto-line-preview
-  :ensure t
   :bind (:map global-map
               ("C-l" . goto-line-preview)
         )
 )
 
 (use-package visual-regexp
-  :ensure t
   :defer t
 )
 
 (use-package zoom-window
-  :ensure t
   :bind (:map global-map
               ("C-x z" . zoom-window-zoom)
         )
 )
 
 (use-package crux
-  :ensure t
   :bind (:map global-map
               ("S-<delete>" . crux-kill-whole-line)
               ("C-d" . crux-duplicate-current-line-or-region)
@@ -228,34 +216,29 @@
 )
 
 (use-package cff
-  :ensure t
   :bind (:map global-map
               ("<f4>" . cff-find-other-file)
         )
 )
 
 (use-package smartparens
-  :ensure t
   :defer t
   :config
     (smartparens-global-mode)
 )
 
 (use-package xclip
-  :ensure t
   :config
     (xclip-mode 1)
 )
 
 (use-package company
-  :ensure t
   :defer t
   :config
     (global-company-mode)
 )
 
 (use-package flycheck
-  :ensure t
   :init
     (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-gcc c/c++-cppcheck emacs-lisp-checkdoc))
   :config
@@ -270,33 +253,28 @@
 )
 
 (use-package yasnippet
-  :ensure t
   :defer t
   :config
     (yas-global-mode)
 )
 
 (use-package perspective
-  :ensure t
   :defer t
   :config
     (persp-mode)
 )
 
 (use-package elpy
-  :ensure t
   :defer t
   :config
     (elpy-enable)
 )
 
 (use-package ccls
-  :ensure t
   :defer t
 )
 
 (use-package cmake-mode
-  :ensure t
   :defer t
 )
 
@@ -310,12 +288,10 @@
   (lambda () (add-to-list 'write-contents-functions 'clang-format-buffer-when-used)))
 
 (use-package dockerfile-mode
-  :ensure t
   :defer t
 )
 
 (use-package yaml-mode
-  :ensure t
   :defer t
 )
 
@@ -329,7 +305,6 @@
 )
 
 (use-package lsp-mode
-  :ensure t
   :init (setq lsp-enable-file-watchers nil)
   :hook ((python-mode . lsp)
          (rust-mode . lsp)
@@ -352,13 +327,11 @@
   :hook (rust-mode . cargo-minor-mode))
 
 (use-package editorconfig
-  :ensure t
   :config
     (editorconfig-mode 1)
 )
 
 (use-package deadgrep
-  :ensure t
   :bind (:map global-map
               ("<f9>" . deadgrep)
               )
