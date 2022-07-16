@@ -160,6 +160,7 @@
 
 (use-package helm
   :ensure t
+  :demand t
   :bind (:map global-map
               ("M-x" . helm-M-x)
               ("C-x b" . helm-buffers-list)
@@ -356,8 +357,9 @@
     (editorconfig-mode 1)
 )
 
-(global-set-key (kbd "<f9>") (lambda(arg)
-                               (interactive "P")
-                               (require 'projectile)
-                               (require 'helm-files)
-                               (helm-grep-ag (projectile-project-root) nil)))
+(use-package deadgrep
+  :ensure t
+  :bind (:map global-map
+              ("<f9>" . deadgrep)
+              )
+)
