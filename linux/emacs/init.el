@@ -279,6 +279,8 @@
 
 (use-package cmake-mode
   :defer t
+  :custom
+    (cmake-tab-width 4)
 )
 
 (defun clang-format-buffer-when-used()
