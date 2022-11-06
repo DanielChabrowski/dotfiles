@@ -67,8 +67,6 @@
 
 (setq-default truncate-lines 0) ;; disable line wrap
 
-(setq compilation-scroll-output t)
-
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
 
@@ -190,6 +188,11 @@
               ("M-<left>" . buf-move-left)
               ("M-<right>" . buf-move-right)
         )
+)
+
+(use-package compile
+  :custom
+    (compilation-scroll-output t)
 )
 
 (use-package goto-line-preview
