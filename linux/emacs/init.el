@@ -299,9 +299,6 @@
   :init
     (setq rust-format-on-save t)
     (setq rust-format-show-buffer nil)
-  :bind (:map rust-mode-map
-              ("M-RET" . lsp-execute-code-action)
-              )
 )
 
 (use-package lsp-mode
@@ -313,6 +310,8 @@
   :bind (:map lsp-mode-map
               ("<f2>" . lsp-find-definition)
               ("<f3>" . lsp-find-references)
+              ("M-RET" . lsp-execute-code-action)
+              ("M-r" . lsp-rename)
               )
 )
 
