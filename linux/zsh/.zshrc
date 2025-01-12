@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.cargo/bin:$HOME/opt/venv/bin"
 export LESS="-FRSXi"
 export FZF_BASE="$HOME/.fzf"
 export EDITOR="emacs"
@@ -51,5 +51,7 @@ alias gau='git add -u'
 alias gc='git commit'
 alias ga='git commit --amend'
 alias gf='git fetch'
+
+alias docker="podman"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
