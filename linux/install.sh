@@ -24,6 +24,9 @@ wget -P ~ git.io/.gdbinit
 # Install polybar config
 ln -sf "$cwd/polybar" ~/.config/polybar
 
+# Install i3wm config
+ln -sf "$cwd/i3" ~/.config/i3
+
 # Install xfce4-terminal settings
 mkdir -p ~/.config/xfce4/terminal
 ln -sf "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
