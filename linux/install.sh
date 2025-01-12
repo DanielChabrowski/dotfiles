@@ -21,6 +21,9 @@ ln -sf "$cwd/emacs/init.el" ~/.emacs.d/init.el
 # Install gdb dashboard
 wget -P ~ git.io/.gdbinit
 
+# Install polybar config
+ln -sf "$cwd/polybar" ~/.config/polybar
+
 # Install xfce4-terminal settings
 mkdir -p ~/.config/xfce4/terminal
 ln -sf "$cwd/xfce4/terminalrc" ~/.config/xfce4/terminal/terminalrc
