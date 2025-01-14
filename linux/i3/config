@@ -14,13 +14,12 @@ font pango:monospace 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-exec --no-startup-id picom --no-fading-openclose -b
+exec --no-startup-id picom --no-fading-openclose --vsync --backend=glx -b
 
 exec --no-startup-id redshift -r
 
 exec --no-startup-id pasystray
 
-# There's probably a better place to do this but meh
 exec --no-startup-id xrandr --output DP-0 --primary --mode 2560x1440 --rate 60 --right-of DP-4 --output DP-4 --mode 2560x1440 --rate 60
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -190,3 +189,4 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 for_window [class="foobar" instance="foobar"] floating enable
+for_window [class="battle.net.exe" instance="battle.net.exe"] floating enable
