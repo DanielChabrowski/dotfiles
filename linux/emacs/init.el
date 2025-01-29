@@ -308,16 +308,25 @@
 
 (use-package lsp-mode
   :init (setq lsp-enable-file-watchers nil)
+  :custom
+    (lsp-copilot-enabled nil)
   :hook ((python-mode . lsp)
+         (python-ts-mode . lsp)
          (rust-mode . lsp)
+         (dart-mode . lsp)
          (c++-mode . lsp)
-         (c-mode . lsp))
+         (c-mode . lsp)
+         (svelte-mode . lsp))
   :bind (:map lsp-mode-map
               ("<f2>" . lsp-find-definition)
               ("<f3>" . lsp-find-references)
               ("M-RET" . lsp-execute-code-action)
               ("M-r" . lsp-rename)
               )
+  )
+
+(use-package lsp-dart
+  :after lsp-mode
 )
 
 (use-package lsp-ui
@@ -339,4 +348,33 @@
   :bind (:map global-map
               ("<f9>" . deadgrep)
               )
+)
+
+(use-package dart-mode)
+
+(use-package prettier
+  :hook ((svelte-mode . prettier-mode)
+         (js-ts-mode . prettier-mode)
+         (tsx-ts-mode . prettier-mode)
+         (json-ts-mode . prettier-mode))
+)
+
+(use-package tree-sitter
+  :ensure t
+  :config
+    (global-tree-sitter-mode)
+    (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+)
+
+(use-package tree-sitter-langs
+  :ensure t
+  :after tree-sitter
+)
+
+(use-package treesit-auto
+  :custom
+    (treesit-auto-install 'prompt)
+  :config
+    (treesit-auto-add-to-auto-mode-alist 'all)
+    (global-treesit-auto-mode)
 )
