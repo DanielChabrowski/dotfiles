@@ -20,7 +20,8 @@ exec --no-startup-id redshift -r
 
 exec --no-startup-id pasystray
 
-exec --no-startup-id xrandr --output DP-0 --primary --mode 2560x1440 --rate 60 --right-of DP-4 --output DP-4 --mode 2560x1440 --rate 60
+#exec --no-startup-id xrandr --output DP-0 --primary --mode 2560x1440 --rate 60 --right-of DP-4 --output DP-4 --mode 2560x1440 --rate 60
+exec --no-startup-id autorandr -c
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -190,3 +191,4 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 for_window [class="foobar" instance="foobar"] floating enable
 for_window [class="battle.net.exe" instance="battle.net.exe"] floating enable
+for_window [title="Battle.net"] floating enable
